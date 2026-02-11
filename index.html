@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あやめのネクサス - Ayame's Nexus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap');
+
+        body {
+            background-color: #fce4ec;
+            /* Soft Pink Background */
+            background-image: radial-gradient(#ffffff 2px, transparent 2px);
+            background-size: 24px 24px;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        .kawaii-card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.05);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid #FFF0F5;
+            /* Lavender Blush border default */
+        }
+
+        .kawaii-card:active {
+            transform: scale(0.96);
+        }
+
+        /* Float animation for icons */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-3px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Pulse for SOS */
+        @keyframes soft-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 182, 193, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 182, 193, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 182, 193, 0);
+            }
+        }
+
+        .priority-pulse {
+            animation: soft-pulse 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Mobile Container (Phone Frameish) -->
+    <div class="w-full max-w-sm mx-auto space-y-6">
+
+        <!-- Header -->
+        <header class="text-center relative py-2">
+            <div
+                class="inline-block bg-white/80 backdrop-blur-sm px-6 py-2 rounded-full border-4 border-pink-100 shadow-sm">
+                <h1 class="text-2xl font-extrabold text-[#FF8BA7] tracking-wider">Ayame's Nexus</h1>
+            </div>
+            <div class="absolute -top-1 right-10 text-2xl animate-bounce" style="animation-duration: 3s;">🐻</div>
+            <div class="absolute top-4 left-10 text-xl animate-bounce"
+                style="animation-delay: 1s; animation-duration: 2.5s;">🐱</div>
+        </header>
+
+        <!-- Bento Grid Layout -->
+        <main class="grid grid-cols-2 gap-4">
+
+            <!-- Period (Health) -->
+            <div onclick="sendWA('【体調 🩸】生理中。とても甘えたい気分です。優しくしてね。')"
+                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-pink-200">
+                <div class="bg-pink-50 p-3 rounded-full mb-3 animate-float">
+                    <span class="text-4xl filter drop-shadow-sm">🐱</span>
+                </div>
+                <h2 class="text-[#FF8BA7] font-bold text-sm">生理中モード</h2>
+                <p class="text-[10px] text-gray-400 mt-1">Health & Mood</p>
+            </div>
+
+            <!-- Chocolate (Sweets) -->
+            <div onclick="sendWA('【おねだり 🍫】チョコ緊急事態！甘いものが食べたいです！')"
+                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-amber-200 border-b-4 border-b-amber-100/50">
+                <div class="bg-amber-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 0.5s;">
+                    <span class="text-4xl filter drop-shadow-sm">🍫</span>
+                </div>
+                <h2 class="text-amber-700 font-bold text-sm">チョコ緊急事態</h2>
+                <p class="text-[10px] text-gray-400 mt-1">Emergency Sweets</p>
+            </div>
+
+            <!-- Allowance (Money) -->
+            <div onclick="sendWA('【お小遣い 💰】お小遣いの補充をお願いできますか？')"
+                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-green-200">
+                <div class="bg-green-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 1s;">
+                    <span class="text-4xl filter drop-shadow-sm">👛</span>
+                </div>
+                <h2 class="text-green-600 font-bold text-sm">お小遣い補充</h2>
+                <p class="text-[10px] text-gray-400 mt-1">Allowance Top-Up</p>
+            </div>
+
+            <!-- Talk (Time) -->
+            <div onclick="sendWA('【二人の時間 🌟】今夜はお話ししたいことがたくさんあります！')"
+                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-purple-200">
+                <div class="bg-purple-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 1.5s;">
+                    <span class="text-4xl filter drop-shadow-sm">✨</span>
+                </div>
+                <h2 class="text-purple-500 font-bold text-sm">お話ししたい</h2>
+                <p class="text-[10px] text-gray-400 mt-1">Deep Talk</p>
+            </div>
+
+            <!-- SOS Money (Span 2) -->
+            <div onclick="sendWA('【最優先 🚨】あやめから緊急のサポート依頼（SOSマネー）が届きました！')"
+                class="col-span-2 kawaii-card bg-red-50/50 border-2 border-red-300 p-5 flex items-center justify-between cursor-pointer priority-pulse group">
+                <div class="flex flex-col text-left pl-2">
+                    <span
+                        class="bg-red-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full self-start mb-1">High
+                        Priority</span>
+                    <h2 class="text-red-500 font-bold text-lg group-hover:text-red-600 transition-colors">緊急サポート</h2>
+                    <p class="text-xs text-red-300">SOS Money Request</p>
+                </div>
+                <span class="text-5xl pr-2 filter drop-shadow-md group-hover:scale-110 transition-transform">💸</span>
+            </div>
+
+        </main>
+
+        <!-- Footer / Special Wishes -->
+        <footer class="mt-6">
+            <div class="kawaii-card p-4 bg-white/90">
+                <label class="block text-xs font-bold text-gray-400 mb-2 pl-1">✨ Special Request (特別なお願い)</label>
+                <div class="flex gap-2">
+                    <input type="text" id="specialWish" placeholder="Message..."
+                        class="flex-1 bg-gray-50 border-2 border-pink-100 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-pink-300 text-gray-600 placeholder-gray-300 transition-colors">
+                    <button onclick="sendSpecial()"
+                        class="bg-[#FF8BA7] text-white rounded-2xl w-14 flex items-center justify-center shadow-md hover:bg-[#FF7597] active:scale-95 transition-all">
+                        <span class="text-xl">💌</span>
+                    </button>
+                </div>
+            </div>
+            <p class="text-center text-[10px] text-gray-300 mt-4">For my Hero 💖</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const myPhone = "18014272857";
+
+        function sendWA(msg) {
+            const url = `https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        function sendSpecial() {
+            const wish = document.getElementById('specialWish').value;
+            if (wish) {
+                sendWA(`【特別なお願い ✨】${wish}`);
+                document.getElementById('specialWish').value = '';
+            } else {
+                const input = document.getElementById('specialWish');
+                input.style.borderColor = '#ff6b6b';
+                input.classList.add('animate-pulse');
+                setTimeout(() => {
+                    input.style.borderColor = '#fae1dd'; // pink-100
+                    input.classList.remove('animate-pulse');
+                }, 500);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="sticker-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.1)"/>
+    </filter>
+  </defs>
+  <!-- Sticker Border -->
+  <path d="M15,30 Q15,10 35,10 L65,10 Q85,10 85,30 L85,70 Q85,90 65,90 L35,90 Q15,90 15,70 Z" fill="white" stroke="#E1BEE7" stroke-width="5" filter="url(#sticker-shadow)"/>
+  
+  <!-- TV Monitor -->
+  <rect x="20" y="20" width="60" height="50" rx="5" fill="#CE93D8" stroke="#AB47BC" stroke-width="2"/>
+  <rect x="25" y="25" width="50" height="40" rx="2" fill="#F3E5F5"/>
+  
+  <!-- Antenna -->
+  <path d="M50,20 L35,5" stroke="#AB47BC" stroke-width="2" stroke-linecap="round"/>
+  <path d="M50,20 L65,5" stroke="#AB47BC" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Screens (Two characters) -->
+  <circle cx="40" cy="45" r="8" fill="white" stroke="#AB47BC" stroke-width="1"/>
+  <circle cx="60" cy="45" r="8" fill="white" stroke="#AB47BC" stroke-width="1"/>
+  
+  <!-- Faces -->
+  <circle cx="38" cy="45" r="1" fill="#333"/>
+  <circle cx="42" cy="45" r="1" fill="#333"/>
+  
+  <circle cx="58" cy="45" r="1" fill="#333"/>
+  <circle cx="62" cy="45" r="1" fill="#333"/>
+  
+  <!-- Sparkles -->
+  <text x="80" y="20" font-size="15">✨</text>
+  <text x="10" y="85" font-size="15">💕</text>
+</svg>

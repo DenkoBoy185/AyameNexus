@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="sticker-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.1)"/>
+    </filter>
+  </defs>
+  <!-- Sticker Border -->
+  <path d="M20,20 Q10,20 10,30 L10,70 Q10,80 20,80 L80,80 Q90,80 90,70 L90,30 Q90,20 80,20 Z" fill="white" stroke="#D7CCC8" stroke-width="5" filter="url(#sticker-shadow)"/>
+  
+  <!-- Chocolate Bar -->
+  <rect x="20" y="25" width="60" height="50" rx="5" fill="#8D6E63" stroke="#5D4037" stroke-width="3"/>
+  
+  <!-- Grid lines -->
+  <line x1="20" y1="42" x2="80" y2="42" stroke="#6D4C41" stroke-width="2"/>
+  <line x1="20" y1="58" x2="80" y2="58" stroke="#6D4C41" stroke-width="2"/>
+  <line x1="50" y1="25" x2="50" y2="75" stroke="#6D4C41" stroke-width="2"/>
+  
+  <!-- Bite mark -->
+  <circle cx="85" cy="25" r="10" fill="white"/>
+  <path d="M78,20 A10,10 0 0,0 78,33" fill="none" stroke="#D7CCC8" stroke-width="5"/>
+  
+  <!-- Kawaii Face overlay -->
+  <circle cx="40" cy="50" r="2.5" fill="#FFCCBC"/> 
+  <circle cx="60" cy="50" r="2.5" fill="#FFCCBC"/>
+  <path d="M48,50 Q50,53 52,50" fill="none" stroke="#FFCCBC" stroke-width="2"/>
+</svg>

@@ -1,0 +1,379 @@
+/* Ayame's Nexus Styles */
+:root {
+    --bg-color: #FFFDF9;
+    /* Cream White */
+    --primary-color: #ffe4e1;
+    /* Marshmallow Pink */
+    --secondary-color: #e6e6fa;
+    /* Soft Lavender */
+    --accent-pink: #ffb7b2;
+    --accent-red: #ff6b6b;
+    --accent-choco: #d2691e;
+    --text-color: #5d5d5d;
+    --card-bg: #ffffff;
+    --shadow-soft: 0 4px 15px rgba(255, 182, 193, 0.2);
+    --shadow-pudding: 0 4px 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.1);
+    --shadow-pudding-active: 0 2px 0 rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.1);
+    --radius-large: 25px;
+    --radius-medium: 15px;
+    --font-main: 'Quicksand', sans-serif;
+    /* Fallback */
+    /* Japanese fonts will load from system usually, or we can import a Google Font for JP if needed, but standard sans-serif often works well for rounded look */
+    --font-jp: 'Nunito', 'Hiragino Maru Gothic ProN', 'Rounded M+ 1c', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-jp);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    background-image:
+        radial-gradient(#FFE4E1 1px, transparent 1px),
+        radial-gradient(#E6E6FA 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.85);
+    /* Slightly more opaque */
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.main-header {
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(180deg, #fff0f5 0%, rgba(255, 255, 255, 0) 100%);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white url('../images/banner.png') no-repeat center center;
+    background-size: cover;
+    padding: 15px 20px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-soft);
+    border: 3px solid #FFF0F5;
+    min-height: 120px;
+    /* Ensure height for the image */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add a semi-transparent overlay to make text readable against the banner */
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 0;
+    border-radius: 26px;
+    /* slightly less than parent to fit inside border */
+}
+
+/* Ensure content is above the overlay */
+.banner-content,
+.mascot-left,
+.mascot-right {
+    position: relative;
+    z-index: 1;
+}
+
+.banner h1 {
+    font-family: var(--font-jp);
+    font-weight: 700;
+    color: var(--accent-pink);
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px white, -1px -1px 0 white;
+    /* Stroke effect for readability */
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 2px 0 0 0;
+    font-weight: 600;
+    text-shadow: 1px 1px 0 white;
+}
+
+.mascot-left,
+.mascot-right {
+    font-size: 2rem;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding-bottom: 200px;
+    /* Space for footer */
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    color: #888;
+    font-weight: 600;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Specific Card Styles */
+.finance-high-card {
+    grid-column: span 2;
+    /* Full width */
+    border: 2px solid #FFE4E1;
+    background: #FFF9F9;
+    position: relative;
+    overflow: hidden;
+}
+
+.priority-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent-red);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: bold;
+}
+
+.time-card {
+    grid-column: span 2;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Pudding Buttons */
+.pudding-btn {
+    border: none;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-family: var(--font-jp);
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    box-shadow: var(--shadow-pudding);
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glossy Effect */
+.pudding-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 15px 15px 100% 100% / 15px 15px 20px 20px;
+    pointer-events: none;
+}
+
+.pudding-btn:active {
+    transform: translateY(4px);
+    box-shadow: var(--shadow-pudding-active);
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.1));
+}
+
+.large-btn .btn-icon {
+    width: 28px;
+    height: 28px;
+}
+
+/* Button Variants */
+.pink-btn {
+    background-color: #FFB7B2;
+    color: #fff;
+}
+
+.brown-btn {
+    background-color: #8D6E63;
+    color: #fff;
+}
+
+.red-alert-btn {
+    background-color: #ef5350;
+    color: #fff;
+    animation: pulse 2s infinite;
+}
+
+.soft-pink-btn {
+    background-color: #F8BBD0;
+    color: #fff;
+}
+
+.lavender-btn {
+    background-color: #B39DDB;
+    color: #fff;
+}
+
+.blue-btn {
+    background-color: #90CAF9;
+    color: #fff;
+}
+
+.hero-btn {
+    background-color: #FF69B4;
+    font-size: 1.1rem;
+    padding: 15px;
+}
+
+.large-btn {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Footer & Input */
+.special-wishes {
+    background: white;
+    padding: 20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    margin-top: auto;
+    /* Push to bottom */
+}
+
+.special-wishes h3 {
+    text-align: center;
+    color: var(--accent-pink);
+    margin-top: 0;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #eee;
+    border-radius: 15px;
+    padding: 10px;
+    font-family: var(--font-jp);
+    resize: none;
+    background: #FAFAFA;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-pink);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 3px solid var(--primary-color);
+}
+
+.close-modal {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ccc;
+    line-height: 0.5;
+}

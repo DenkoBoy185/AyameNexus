@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <filter id="sticker-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.1)"/>
+    </filter>
+  </defs>
+  <!-- Sticker Border -->
+  <path d="M25,30 Q15,40 15,60 Q15,85 50,85 Q85,85 85,60 Q85,40 75,30 L65,30 L60,25 L40,25 L35,30 Z" fill="white" stroke="#F8BBD0" stroke-width="5" filter="url(#sticker-shadow)"/>
+  
+  <!-- Coin Purse (Gamaguchi) -->
+  <path d="M25,35 Q15,45 20,65 Q25,80 50,80 Q75,80 80,65 Q85,45 75,35 Z" fill="#F48FB1" stroke="#EC407A" stroke-width="2"/>
+  
+  <!-- Clasp -->
+  <circle cx="43" cy="30" r="4" fill="#FFEE58" stroke="#FBC02D" stroke-width="1"/>
+  <circle cx="57" cy="30" r="4" fill="#FFEE58" stroke="#FBC02D" stroke-width="1"/>
+  <path d="M25,35 L75,35" stroke="#FBC02D" stroke-width="3" fill="none"/>
+  
+  <!-- Kawaii Face -->
+  <circle cx="40" cy="55" r="2" fill="#5D5D5D"/>
+  <circle cx="60" cy="55" r="2" fill="#5D5D5D"/>
+  <path d="M48,58 Q50,60 52,58" fill="none" stroke="#5D5D5D" stroke-width="2"/>
+  <circle cx="35" cy="62" r="3" fill="#FFCDD2" opacity="0.6"/>
+  <circle cx="65" cy="62" r="3" fill="#FFCDD2" opacity="0.6"/>
+</svg>
