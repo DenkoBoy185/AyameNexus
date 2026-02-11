@@ -3,188 +3,363 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>あやめのネクサス - Ayame's Nexus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>あやめのネクサス V3</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'kawaii': ['"M PLUS Rounded 1c"', 'sans-serif'] },
+                    colors: {
+                        'cream': '#FFFDF9',
+                        'sakura-light': '#FFF0F5',
+                        'sakura-dark': '#FFB7C5',
+                        'gold-soft': '#F3E5AB'
+                    },
+                    animation: {
+                        'bounce-slight': 'bounce-slight 0.3s ease-in-out',
+                        'float-particle': 'float-particle 10s linear infinite',
+                        'neko-bounce': 'neko-bounce 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        'bounce-slight': {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(0.95)' }
+                        },
+                        'float-particle': {
+                            '0%': { transform: 'translateY(0) rotate(0deg)', opacity: '0.8' },
+                            '100%': { transform: 'translateY(-100vh) rotate(360deg)', opacity: '0' }
+                        },
+                        'neko-bounce': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap');
-
         body {
-            background-color: #fce4ec;
-            /* Soft Pink Background */
-            background-image: radial-gradient(#ffffff 2px, transparent 2px);
-            background-size: 24px 24px;
-            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-family: 'kawaii', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .kawaii-card {
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(255, 182, 193, 0.3);
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 182, 193, 0.4);
+            border-radius: 50%;
+        }
+
+        .neko-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            z-index: 50;
+            cursor: pointer;
+        }
+
+        .neko-bubble {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
             background: white;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.05);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 3px solid #FFF0F5;
-            /* Lavender Blush border default */
+            padding: 8px 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+            font-weight: bold;
+            color: #E91E63;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            border: 2px solid #FFF0F5;
         }
 
-        .kawaii-card:active {
-            transform: scale(0.96);
+        .neko-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+            border-bottom: 2px solid #FFF0F5;
+            border-right: 2px solid #FFF0F5;
         }
 
-        /* Float animation for icons */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-3px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
+        .input-money {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #FFB7C5;
+            font-size: 1.5rem;
+            text-align: center;
+            width: 100%;
+            padding: 8px;
+            outline: none;
+            font-weight: bold;
+            color: #E91E63;
         }
 
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+        .input-money::placeholder {
+            color: #FFB7C5;
+            opacity: 0.5;
         }
 
-        /* Pulse for SOS */
-        @keyframes soft-pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 182, 193, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(255, 182, 193, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 182, 193, 0);
-            }
-        }
-
-        .priority-pulse {
-            animation: soft-pulse 2s infinite;
+        .energy-btn.active {
+            background-color: #FFF0F5;
+            border-color: #FFB7C5;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="bg-cream text-gray-700 min-h-screen pb-24 relative overflow-x-hidden">
 
-    <!-- Mobile Container (Phone Frameish) -->
-    <div class="w-full max-w-sm mx-auto space-y-6">
+    <div id="particles" class="particles-container"></div>
+
+    <div class="max-w-md mx-auto p-5 space-y-6 relative z-10">
 
         <!-- Header -->
-        <header class="text-center relative py-2">
-            <div
-                class="inline-block bg-white/80 backdrop-blur-sm px-6 py-2 rounded-full border-4 border-pink-100 shadow-sm">
-                <h1 class="text-2xl font-extrabold text-[#FF8BA7] tracking-wider">Ayame's Nexus</h1>
-            </div>
-            <div class="absolute -top-1 right-10 text-2xl animate-bounce" style="animation-duration: 3s;">🐻</div>
-            <div class="absolute top-4 left-10 text-xl animate-bounce"
-                style="animation-delay: 1s; animation-duration: 2.5s;">🐱</div>
+        <header class="text-center pt-4">
+            <h1 class="text-2xl font-extrabold text-[#E91E63] tracking-widest mb-1">AYAME'S NEXUS <span
+                    class="text-xs align-top opacity-60">V3</span></h1>
+            <p class="text-[10px] text-gray-400 font-bold tracking-widest uppercase">SOFT KAWAII LUXURY • WHATSAPP API
+            </p>
         </header>
 
-        <!-- Bento Grid Layout -->
-        <main class="grid grid-cols-2 gap-4">
+        <!-- [ENERGY SELECTOR] GLOBAL STATE -->
+        <section class="glass-panel rounded-[30px] p-4">
+            <h2 class="text-center text-xs font-bold text-gray-400 mb-3 tracking-widest">現在のエネルギー (ENERGY)</h2>
+            <div class="flex justify-between gap-3">
+                <button onclick="setEnergy('low')" id="energy-low"
+                    class="energy-btn flex-1 py-3 rounded-2xl border-2 border-transparent bg-white/50 transition-all flex flex-col items-center gap-1">
+                    <span class="text-2xl">🪫</span>
+                    <span class="text-[10px] font-bold text-gray-500">Low</span>
+                </button>
+                <button onclick="setEnergy('mid')" id="energy-mid"
+                    class="energy-btn active flex-1 py-3 rounded-2xl border-2 border-transparent bg-white/50 transition-all flex flex-col items-center gap-1">
+                    <span class="text-2xl">🔋</span>
+                    <span class="text-[10px] font-bold text-green-500">Mid</span>
+                </button>
+                <button onclick="setEnergy('high')" id="energy-high"
+                    class="energy-btn flex-1 py-3 rounded-2xl border-2 border-transparent bg-white/50 transition-all flex flex-col items-center gap-1">
+                    <span class="text-2xl">⚡</span>
+                    <span class="text-[10px] font-bold text-yellow-500">High</span>
+                </button>
+            </div>
+        </section>
 
-            <!-- Period (Health) -->
-            <div onclick="sendWA('【体調 🩸】生理中。とても甘えたい気分です。優しくしてね。')"
-                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-pink-200">
-                <div class="bg-pink-50 p-3 rounded-full mb-3 animate-float">
-                    <span class="text-4xl filter drop-shadow-sm">🐱</span>
+        <!-- [SOS MONEY - DYNAMIC] -->
+        <section
+            class="glass-panel rounded-[30px] p-6 border-2 border-red-100 shadow-[0_8px_30px_rgba(255,100,100,0.1)]">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-red-400 font-extrabold text-lg">SOS Money</h2>
+                    <p class="text-[10px] text-red-300">Emergency Funds Support</p>
                 </div>
-                <h2 class="text-[#FF8BA7] font-bold text-sm">生理中モード</h2>
-                <p class="text-[10px] text-gray-400 mt-1">Health & Mood</p>
+                <span class="text-3xl animate-pulse">💸</span>
             </div>
 
-            <!-- Chocolate (Sweets) -->
-            <div onclick="sendWA('【おねだり 🍫】チョコ緊急事態！甘いものが食べたいです！')"
-                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-amber-200 border-b-4 border-b-amber-100/50">
-                <div class="bg-amber-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 0.5s;">
-                    <span class="text-4xl filter drop-shadow-sm">🍫</span>
-                </div>
-                <h2 class="text-amber-700 font-bold text-sm">チョコ緊急事態</h2>
-                <p class="text-[10px] text-gray-400 mt-1">Emergency Sweets</p>
+            <div class="mb-4 relative">
+                <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xl font-bold text-gray-300">¥</span>
+                <input type="number" id="money-input" placeholder="0" class="input-money pl-8"
+                    oninput="updateMoneyButton()">
             </div>
 
-            <!-- Allowance (Money) -->
-            <div onclick="sendWA('【お小遣い 💰】お小遣いの補充をお願いできますか？')"
-                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-green-200">
-                <div class="bg-green-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 1s;">
-                    <span class="text-4xl filter drop-shadow-sm">👛</span>
-                </div>
-                <h2 class="text-green-600 font-bold text-sm">お小遣い補充</h2>
-                <p class="text-[10px] text-gray-400 mt-1">Allowance Top-Up</p>
+            <button id="btn-money" onclick="sendMoneyRequest()"
+                class="w-full bg-red-400 text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-red-500 active:scale-95 transition-all flex items-center justify-center gap-2">
+                <span>金額を入力してください</span>
+            </button>
+        </section>
+
+        <!-- [PRINCESS MODE] -->
+        <section class="space-y-3">
+            <h2 class="pl-4 text-xs font-bold text-pink-400 tracking-widest">プリンセスモード (Princess Mode) 👑</h2>
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="sendWA('💅 【プリンセスモード】ネイルに行きたいです！可愛くなりたい！')"
+                    class="glass-panel rounded-3xl p-3 flex flex-col items-center gap-2 active:scale-95 transition-transform">
+                    <span class="text-3xl">💅</span>
+                    <span class="text-[10px] font-bold text-gray-500">Nails</span>
+                </button>
+                <button onclick="sendWA('💇‍♀️ 【プリンセスモード】美容院に行きたいです！綺麗にしてくるね。')"
+                    class="glass-panel rounded-3xl p-3 flex flex-col items-center gap-2 active:scale-95 transition-transform">
+                    <span class="text-3xl">💇‍♀️</span>
+                    <span class="text-[10px] font-bold text-gray-500">Hair</span>
+                </button>
+                <button onclick="sendWA('🧖‍♀️ 【プリンセスモード】スパで癒されたいです！リフレッシュ✨')"
+                    class="glass-panel rounded-3xl p-3 flex flex-col items-center gap-2 active:scale-95 transition-transform">
+                    <span class="text-3xl">🧖‍♀️</span>
+                    <span class="text-[10px] font-bold text-gray-500">Spa</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- [BUSY HERO & FUTURE] -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Busy Hero -->
+            <div class="space-y-3">
+                <h2 class="pl-2 text-xs font-bold text-indigo-400 tracking-widest">忙しいヒーローへ 🌙</h2>
+                <button onclick="sendWA('🍽️ 【静かな時間】ビデオ通話で一緒にご飯食べよう（会話なし）。')"
+                    class="w-full glass-panel rounded-[25px] p-4 active:scale-95 transition-transform text-left border-l-4 border-indigo-200">
+                    <div class="text-2xl mb-1">🍽️</div>
+                    <h3 class="font-bold text-xs text-indigo-500">黙食ビデオ</h3>
+                    <p class="text-[8px] text-gray-400">Silent Dinner</p>
+                </button>
+                <button onclick="sendWA('🔋 【エネルギー】パワーを送ってください！寂しいです。')"
+                    class="w-full glass-panel rounded-[25px] p-4 active:scale-95 transition-transform text-left border-l-4 border-yellow-200">
+                    <div class="text-2xl mb-1">⚡</div>
+                    <h3 class="font-bold text-xs text-yellow-600">パワー送信</h3>
+                    <p class="text-[8px] text-gray-400">Send Energy</p>
+                </button>
             </div>
 
-            <!-- Talk (Time) -->
-            <div onclick="sendWA('【二人の時間 🌟】今夜はお話ししたいことがたくさんあります！')"
-                class="kawaii-card aspect-square flex flex-col items-center justify-center p-4 cursor-pointer hover:border-purple-200">
-                <div class="bg-purple-50 p-3 rounded-full mb-3 animate-float" style="animation-delay: 1.5s;">
-                    <span class="text-4xl filter drop-shadow-sm">✨</span>
-                </div>
-                <h2 class="text-purple-500 font-bold text-sm">お話ししたい</h2>
-                <p class="text-[10px] text-gray-400 mt-1">Deep Talk</p>
+            <!-- Future Dreams -->
+            <div class="space-y-3">
+                <h2 class="pl-2 text-xs font-bold text-green-500 tracking-widest">未来の夢 🏡</h2>
+                <button onclick="sendWA('🏡 【未来の夢】理想の家・家具を見つけました！これどうかな？')"
+                    class="w-full h-full glass-panel rounded-[30px] p-5 active:scale-95 transition-transform flex flex-col items-center justify-center text-center border-t-4 border-green-200"
+                    style="min-height: 140px;">
+                    <div class="text-4xl mb-3">🏡</div>
+                    <h3 class="font-bold text-sm text-green-600">理想の家</h3>
+                    <p class="text-[10px] text-gray-400">Dream House<br>Ideas</p>
+                </button>
             </div>
-
-            <!-- SOS Money (Span 2) -->
-            <div onclick="sendWA('【最優先 🚨】あやめから緊急のサポート依頼（SOSマネー）が届きました！')"
-                class="col-span-2 kawaii-card bg-red-50/50 border-2 border-red-300 p-5 flex items-center justify-between cursor-pointer priority-pulse group">
-                <div class="flex flex-col text-left pl-2">
-                    <span
-                        class="bg-red-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full self-start mb-1">High
-                        Priority</span>
-                    <h2 class="text-red-500 font-bold text-lg group-hover:text-red-600 transition-colors">緊急サポート</h2>
-                    <p class="text-xs text-red-300">SOS Money Request</p>
-                </div>
-                <span class="text-5xl pr-2 filter drop-shadow-md group-hover:scale-110 transition-transform">💸</span>
-            </div>
-
-        </main>
-
-        <!-- Footer / Special Wishes -->
-        <footer class="mt-6">
-            <div class="kawaii-card p-4 bg-white/90">
-                <label class="block text-xs font-bold text-gray-400 mb-2 pl-1">✨ Special Request (特別なお願い)</label>
-                <div class="flex gap-2">
-                    <input type="text" id="specialWish" placeholder="Message..."
-                        class="flex-1 bg-gray-50 border-2 border-pink-100 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-pink-300 text-gray-600 placeholder-gray-300 transition-colors">
-                    <button onclick="sendSpecial()"
-                        class="bg-[#FF8BA7] text-white rounded-2xl w-14 flex items-center justify-center shadow-md hover:bg-[#FF7597] active:scale-95 transition-all">
-                        <span class="text-xl">💌</span>
-                    </button>
-                </div>
-            </div>
-            <p class="text-center text-[10px] text-gray-300 mt-4">For my Hero 💖</p>
-        </footer>
+        </div>
 
     </div>
 
-    <script>
-        const myPhone = "18014272857";
+    <!-- Neko Guardian -->
+    <div class="neko-container group" onclick="petNeko()">
+        <div id="neko-bubble" class="neko-bubble">大好き！ (Te quiero)</div>
+        <!-- Black Cat SVG -->
+        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl filter hover:brightness-110 transition-all">
+            <g id="neko-body">
+                <path d="M50 25 C30 25 15 45 15 65 C15 85 30 95 50 95 C70 95 85 85 85 65 C85 45 70 25 50 25"
+                    fill="#2d3436" />
+                <polygon points="25 35 15 10 45 25" fill="#2d3436" />
+                <polygon points="75 35 85 10 55 25" fill="#2d3436" />
+                <circle cx="35" cy="55" r="4" fill="#ffffff" />
+                <circle cx="65" cy="55" r="4" fill="#ffffff" />
+                <path d="M45 65 Q50 70 55 65" stroke="#ff7675" stroke-width="2" fill="none" opacity="0.6" />
+            </g>
+        </svg>
+    </div>
 
-        function sendWA(msg) {
-            const url = `https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`;
+    <script>
+        const PHONE_NUMBER = "18014272857";
+        let currentEnergy = '中 (Mid) 🔋';
+
+        // 1. Particle System
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 15; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                const size = Math.random() * 15 + 5;
+                p.style.width = p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.animation = `float-particle ${Math.random() * 10 + 10}s linear infinite`;
+                p.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // 2. Energy Logic
+        function setEnergy(level) {
+            document.querySelectorAll('.energy-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`energy-${level}`).classList.add('active');
+
+            if (level === 'low') currentEnergy = '低 (Low) 🪫';
+            if (level === 'mid') currentEnergy = '中 (Mid) 🔋';
+            if (level === 'high') currentEnergy = '高 (High) ⚡';
+        }
+
+        // 3. Main WhatsApp Sender
+        function sendWA(message) {
+            // Append global energy state
+            const finalMessage = `${message}\n\n(エネルギー: ${currentEnergy})`;
+            const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(finalMessage)}`;
             window.open(url, '_blank');
         }
 
-        function sendSpecial() {
-            const wish = document.getElementById('specialWish').value;
-            if (wish) {
-                sendWA(`【特別なお願い ✨】${wish}`);
-                document.getElementById('specialWish').value = '';
+        // 4. Money Logic
+        function updateMoneyButton() {
+            const amount = document.getElementById('money-input').value;
+            const btn = document.getElementById('btn-money');
+            if (amount && amount > 0) {
+                const formatted = Number(amount).toLocaleString();
+                btn.innerHTML = `<span class="animate-pulse">Solicitar ¥${formatted} (Request)</span>`;
+                btn.classList.replace('bg-red-400', 'bg-red-500');
             } else {
-                const input = document.getElementById('specialWish');
-                input.style.borderColor = '#ff6b6b';
-                input.classList.add('animate-pulse');
-                setTimeout(() => {
-                    input.style.borderColor = '#fae1dd'; // pink-100
-                    input.classList.remove('animate-pulse');
-                }, 500);
+                btn.innerHTML = `<span>金額を入力してください</span>`;
+                btn.classList.replace('bg-red-500', 'bg-red-400');
             }
         }
+
+        function sendMoneyRequest() {
+            const amount = document.getElementById('money-input').value;
+            if (!amount) return document.getElementById('money-input').focus();
+
+            const msg = `🚨 【SOS金銭】 ¥${Number(amount).toLocaleString()} の支援が必要です。よろしくお願いします！`;
+            sendWA(msg);
+
+            // Interaction Feedback
+            const btn = document.getElementById('btn-money');
+            btn.innerHTML = `<span>✓ 開いています...</span>`;
+            setTimeout(() => {
+                document.getElementById('money-input').value = '';
+                updateMoneyButton();
+            }, 2000);
+        }
+
+        // 5. Neko Interaction
+        const nekoGreetings = ["大好き！(Te quiero)", "頑張って！(Ánimo)", "寂しいな (Te extraño)", "にゃーん (Meow)"];
+        function petNeko() {
+            const bubble = document.getElementById('neko-bubble');
+            const neko = document.querySelector('.neko-container svg');
+
+            // Random Text
+            bubble.textContent = nekoGreetings[Math.floor(Math.random() * nekoGreetings.length)];
+
+            // Animation
+            bubble.style.opacity = '1';
+            neko.style.animation = 'neko-bounce 0.5s ease';
+
+            setTimeout(() => {
+                bubble.style.opacity = '0';
+                neko.style.animation = 'none';
+            }, 2000);
+        }
+
     </script>
 </body>
 
